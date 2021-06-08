@@ -27,3 +27,4 @@ One is the volume-intensity dependence as a reference, and the second outputs th
 Running this two-code process for different maximum beam intensities will allow one to recreate the ion yield curves central to this study and reproduced in the laboratory. 
 
 Suggested C++ compiler: mingw64
+Download this entire repository as a zip folder to run locally
