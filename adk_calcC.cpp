@@ -1,3 +1,17 @@
+/*ADK rate and ion population curve calculations for Carbon
+
+Written by Liam Kelley, last updated 6/8/2021
+
+First produces a time-dependent intensity profile of a Gaussian beam based on the FWHM and max intensity,
+which a user can edit. Then uses the intensity arrays to calculate the ADK ionization rates for every species
+up to carbon 4+. Then, following the rate equations for ion populations, integrates the rates to create population curves.
+Also sets an upper limit on the ADK rate (1e-17 /s) to account for electron orbital period.
+
+The code outputs two files. The first includes the ion population curves with their associated intensities.
+The second is the ADK rates (in atomic units for the ion species) before the integration occurs.
+*/
+
+
 /****************************************************************************/
 /*Headers*/
 /****************************************************************************/
@@ -26,7 +40,7 @@ double tstart = -100e-15; //starting time for the integration
 double tend = 100e-15; //ending time for the integration
 double tnow2 = 0;
 
-double ipC0 = 11.2602880 / 27.2; // Factors needed to calculate the ADK rate for C0 (atomic units)
+double ipC0 = 11.2602880 / 27.2; // Factors needed to calculate the ADK rate for C0 (atomic units) (see Fittinghoff thesis)
 double nstarC0 = 1.0 / sqrt(2.0 * ipC0);
 double npowerC0 = 2.0 * nstarC0 - 1;
 double lstarC0 = nstarC0 - 1.0;
@@ -80,10 +94,12 @@ double c2nlC4 =
 double IntensitySI[size]; //arrays for storing the intensity and field strength information, in SI units
 double EFieldSI[size];
 double EFieldau[size];
-double IMaxAmpSI = 2.4e17; //max intensity of the pulse, in W/m^2
+double timeArray[size];
+
+//Beam parameters
+double IMaxAmpSI = 2.4e17; //max intensity of the pulse, in W/m^2 EDIT THIS
 double fwhm = 40e-15; //full width half max of the pulse, in seconds
 double sigma = fwhm / (2.0 * sqrt(2.0 * log(2.0)));
-double timeArray[size];
 double lambda = 800e-9;
 
 int fieldCounter = 0;
@@ -173,7 +189,7 @@ double integrate_for_pop(double ADKLess[], double PopLess[], double PhiNow[],
 
 }
 
-void ADKAdjust(double ADK[]) {
+void ADKAdjust(double ADK[]) { //adjusts ADK rates to account for maximum rate (corresponding to electron orbital time)
 
 	int hits[size];
 	int hitscounter = 0;
@@ -251,6 +267,8 @@ int main() {
 	ADKAdjust(ADKC3);
 	ADKAdjust(ADKC4);
 
+	//Main loop for ion population curves
+
 	for (double tnow = tstart; tnow < tend; tnow += dt) {
 
 		PhiC0[popCounter] = integrate_for_phi(ADKC0, tnow);
@@ -278,10 +296,27 @@ int main() {
 
 	//OUTPUTTING TO FILES
 
-	outFile.open("output.dat");
+	outFile.open("outputPopulations.dat");
+
+	outFile << "Intensity (SI)";
+	outFile << "\t";
+	outFile << "Intensity (au)";
+	outFile << "\t";
+	outFile << "Carbon 0+ population";
+	outFile << "\t";
+	outFile << "Carbon 1+ population";
+	outFile << "\t";
+	outFile << "Carbon 2+ population";
+	outFile << "\t";
+	outFile << "Carbon 3+ population";
+	outFile << "\t";
+	outFile << "Carbon 4+ population";
+	outFile << "\n";
 
 	for (int k = 0; k < size; k++) { //writing to file the intensity - population data (W/cm^2)
 		outFile << IntensitySI[k] / 10000.0;
+		outFile << "\t";
+		outFile << IntensitySI[k] / 10000.0 /(3.50945e16);
 		outFile << "\t";
 		outFile << PC0[k];
 		outFile << "\t";
@@ -295,13 +330,43 @@ int main() {
 		outFile << "\n";
 
 	}
-//
-//	for (int k = 0; k < size; k++) { //writing to file the intensity - population data (W/cm^2)
-//		outFile << timeArray[k];
-//		outFile << "\t";
-//		outFile << IntensitySI[k] / 10000.0;
-//		outFile << "\n";
-//	}
+
+	outFile.close();
+
+	outFile.open("outputADKRates.dat");
+
+	outFile << "Intensity (SI)";
+	outFile << "\t";
+	outFile << "Intensity (au)";
+	outFile << "\t";
+	outFile << "Carbon 0+ ADK Rate (au)";
+	outFile << "\t";
+	outFile << "Carbon 1+ ADK Rate (au)";
+	outFile << "\t";
+	outFile << "Carbon 2+ ADK Rate (au)";
+	outFile << "\t";
+	outFile << "Carbon 3+ ADK Rate (au)";
+	outFile << "\t";
+	outFile << "Carbon 4+ ADK Rate (au)";
+	outFile << "\n";
+
+	for (int k = 0; k < size; k++) { //writing to file the intensity - population data (W/cm^2)
+		outFile << IntensitySI[k] / 10000.0;
+		outFile << "\t";
+		outFile << IntensitySI[k] / 10000.0 / (3.50945e16);
+		outFile << "\t";
+		outFile << ADKC0[k];
+		outFile << "\t";
+		outFile << ADKC1[k];
+		outFile << "\t";
+		outFile << ADKC2[k];
+		outFile << "\t";
+		outFile << ADKC3[k];
+		outFile << "\t";
+		outFile << ADKC4[k];
+		outFile << "\n";
+
+	}
 
 	outFile.close();
 

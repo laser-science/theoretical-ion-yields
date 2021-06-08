@@ -1,3 +1,16 @@
+/*ADK rate and ion population curve calculations for Oxygen
+
+Written by Liam Kelley, last updated 6/8/2021
+
+First produces a time-dependent intensity profile of a Gaussian beam based on the FWHM and max intensity,
+which a user can edit. Then uses the intensity arrays to calculate the ADK ionization rates for every species
+up to oxygen 6+. Then, following the rate equations for ion populations, integrates the rates to create population curves.
+Also sets an upper limit on the ADK rate (1e-17 /s) to account for electron orbital period.
+
+The code outputs two files. The first includes the ion population curves with their associated intensities.
+The second is the ADK rates (in atomic units for the ion species) before the integration occurs.
+*/
+
 /****************************************************************************/
 /*Headers*/
 /****************************************************************************/
@@ -180,7 +193,7 @@ double integrate_for_pop(double ADKLess[], double PopLess[], double PhiNow[],
 
 }
 
-void ADKAdjust(double ADK[]) {
+void ADKAdjust(double ADK[]) { //adjusts ADK rates to account for maximum rate (corresponding to electron orbital time)
 
 	int hits[size];
 	int hitscounter = 0;
@@ -317,10 +330,31 @@ int main() {
 
 	//OUTPUTTING TO FILES
 
-	outFile.open("output.dat");
+	outFile.open("outputPopulations.dat");
+
+	outFile << "Intensity (SI)";
+	outFile << "\t";
+	outFile << "Intensity (au)";
+	outFile << "\t";
+	outFile << "Oxygen 0+ population";
+	outFile << "\t";
+	outFile << "Oxygen 1+ population";
+	outFile << "\t";
+	outFile << "Oxygen 2+ population";
+	outFile << "\t";
+	outFile << "Oxygen 3+ population";
+	outFile << "\t";
+	outFile << "Oxygen 4+ population";
+	outFile << "\t";
+	outFile << "Oxygen 5+ population";
+	outFile << "\t";
+	outFile << "Oxygen 6+ population";
+	outFile << "\n";
 
 	for (int k = 0; k < size; k++) { //writing to file the intensity - population data (W/cm^2)
-		outFile << IntensitySI[k] / 10000;
+		outFile << IntensitySI[k] / 10000.0;
+		outFile << "\t";
+		outFile << IntensitySI[k] / 10000.0 /(3.50945e16);
 		outFile << "\t";
 		outFile << PO0[k];
 		outFile << "\t";
@@ -333,8 +367,53 @@ int main() {
 		outFile << PO4[k];
 		outFile << "\t";
 		outFile << PO5[k];
-		outFile << "\t";
+		OUtFile << "\t";
 		outFile << PO6[k];
+		outFile << "\n";
+
+	}
+
+	outFile.close();
+
+	outFile.open("outputADKRates.dat");
+
+	outFile << "Intensity (SI)";
+	outFile << "\t";
+	outFile << "Intensity (au)";
+	outFile << "\t";
+	outFile << "Oxygen 0+ ADK Rate (au)";
+	outFile << "\t";
+	outFile << "Oxygen 1+ ADK Rate (au)";
+	outFile << "\t";
+	outFile << "Oxygen 2+ ADK Rate (au)";
+	outFile << "\t";
+	outFile << "Oxygen 3+ ADK Rate (au)";
+	outFile << "\t";
+	outFile << "Oxygen 4+ ADK Rate (au)";
+	outFile << "\t";
+	outFile << "Oxygen 5+ ADK Rate (au)";
+	outFile << "\t";
+	outFile << "Oxygen 6+ ADK Rate (au)";
+	outFile << "\n";
+
+	for (int k = 0; k < size; k++) { //writing to file the intensity - population data (W/cm^2)
+		outFile << IntensitySI[k] / 10000.0;
+		outFile << "\t";
+		outFile << IntensitySI[k] / 10000.0 / (3.50945e16);
+		outFile << "\t";
+		outFile << ADKO0[k];
+		outFile << "\t";
+		outFile << ADKO1[k];
+		outFile << "\t";
+		outFile << ADKO2[k];
+		outFile << "\t";
+		outFile << ADKO3[k];
+		outFile << "\t";
+		outFile << ADKO4[k];
+		outFile << "\t";
+		outFile << ADKO5[k];
+		outFile << "\t";
+		outFile << ADKO6[k];
 		outFile << "\n";
 
 	}
