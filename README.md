@@ -6,8 +6,22 @@ For the mathematica primer for the ADK calulations [click here.](https://github.
 
 [Oxygen ADK rate calculation .cpp file](https://github.com/laser-science/theoretical-ion-yields/blob/main/adk_calcO.cpp)
 
+[Carbon Monoxide ADK rate calculation .cpp file](https://github.com/laser-science/theoretical-ion-yields/blob/main/adk_calcCO.cpp)
 
 [Carbon ion yeild calculation](https://github.com/laser-science/theoretical-ion-yields/blob/main/GaussianBeamIntegrationC.cpp)
 
 [Oxygen ion yield calculation](https://github.com/laser-science/theoretical-ion-yields/blob/main/GaussianBeamIntegrationO.cpp)
 
+[Carbon Monoxide ion yeild calculation](https://github.com/laser-science/theoretical-ion-yields/blob/main/GaussianBeamIntegrationCO.cpp)
+
+
+# How to use this code:
+
+For either C, O, or CO, begin with the respective adk_calc.cpp file. In this file, there are variables to edit the characteristics of the Gaussian beam, including the maximum 
+intensity amplitude, the wavelength, and the FWHM. The code starts by calculating the ADK rate as a function of intensity and integrating the rates to produce the ion population curves. This code outputs the ADK rates and populations as functions of intensity in two separate .dat files.
+
+Once you run this code, to get the total ion yield the GaussianBeamIntegration.cpp code is next. This code takes the populations and integrates based on the intensity-volume dependence of the beam. Volumes are calculated based on intensity, and the yields are updated based on the populations of the ions at those intensities. To run this code,
+take the population .dat file from the previous code and edit the input of the beam integration code based on the location and name of this file. This code also outputs two files.
+One is the volume-intensity dependence as a reference, and the second outputs the ion yields for each ion as a single number. 
+
+Running this two-code process for different maximum beam intensities will allow one to recreate the ion yield curves central to this study and reproduced in the actual experiment. 
