@@ -8,11 +8,11 @@ For the mathematica primer for the ADK calulations [click here.](https://github.
 
 [Carbon Monoxide ADK rate calculation .cpp file](https://github.com/laser-science/theoretical-ion-yields/blob/main/adk_calcCO.cpp)
 
-[Carbon ion yeild calculation](https://github.com/laser-science/theoretical-ion-yields/blob/main/GaussianBeamIntegrationC.cpp)
+[Carbon ion yield calculation](https://github.com/laser-science/theoretical-ion-yields/blob/main/GaussianBeamIntegrationC.cpp)
 
 [Oxygen ion yield calculation](https://github.com/laser-science/theoretical-ion-yields/blob/main/GaussianBeamIntegrationO.cpp)
 
-[Carbon Monoxide ion yeild calculation](https://github.com/laser-science/theoretical-ion-yields/blob/main/GaussianBeamIntegrationCO.cpp)
+[Carbon Monoxide ion yield calculation](https://github.com/laser-science/theoretical-ion-yields/blob/main/GaussianBeamIntegrationCO.cpp)
 
 
 # How to use this code:
