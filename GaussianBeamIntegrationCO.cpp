@@ -1,11 +1,13 @@
 /*
  * Volume integration of the temporally integrate populations for CO
  *
- * last updated 9/15/20 by Liam Kelley
+ * last updated 6/8/21 by Liam Kelley
  *
  * Takes the ion population curves for CO and does the volume integration for the ion
  * yields based on the intensities present in the input file.
  *
+ * Outputs two files. The first is the volume correlation to the intensities just as a reference.
+ * The second file is the total yield for each ion.
  */
 
 #include <iostream>
@@ -35,7 +37,8 @@ array<double, calcsize> IntsFromCalc; // has units of W/cm^2
 const int sizefile = 28570; //size of the files from the population calculation
 
 array<double, sizefile> IntsFromFile; //array of intensities from the pop calculation
-string tempint; //storage variable for intensities
+string tempintsi; //storage variable for intensities
+string tempintau;
 
 array<double, sizefile> CO0pop; //arrays for the populations of each ion of carbon
 array<double, sizefile> CO1pop;
@@ -75,7 +78,8 @@ int main() {
 
 	 while (popindex < sizefile) {
 
-	 inFile >> tempint;
+	 inFile >> tempintsi;
+	 inFile >> tempintau;
 	 inFile >> tempco0;
 	 inFile >> tempco1;
 
@@ -138,7 +142,12 @@ int main() {
 
 	 //Writing out intensities and volumes to file
 
-	 outFile.open("output.dat");
+outFile.open("outputVolumes.dat");
+
+	 outFile << "Intensity (SI)";
+	 outFile << "\t";
+	 outFile << "Volume (SI)";
+	 outFile << "\n";
 
 	 for (int k = 0; k < calcsize; k++) {
 	 outFile << IntsFromCalc[k];
@@ -147,15 +156,18 @@ int main() {
 	 outFile << "\n";
 	 }
 
+	 outFile.close();
+
+	 outFile.open("outputYields.dat");
+
+	 outFile << "Carbon Monoxide 1+ Yield";
+	 outFile << "\n";
+
+     outFile << co1yield;
+	 outFile << "\n";
 
 	 outFile.close();
 
-	/*cout << VolumeCalc(Xi(1.1e14)) << endl;
-	cout
-	 << VolumeCalc(Xi(0.8 * I0))
-	 + (VolumeCalc(Xi(0.6 * I0)) - VolumeCalc(Xi(0.8 * I0)))
-	 + (VolumeCalc(Xi(0.4 * I0)) - VolumeCalc(Xi(0.6 * I0)))
-	 + (VolumeCalc(Xi(0.2*I0)) -VolumeCalc(Xi(0.4 * I0)));*/
 
 	return 0;
 

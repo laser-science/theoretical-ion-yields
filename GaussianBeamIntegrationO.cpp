@@ -1,11 +1,13 @@
 /*
- * Volume integration of the temporally integrate populations for CO
+ * Volume integration of the temporally integrate populations for O
  *
- * last updated 9/15/20 by Liam Kelley
+ * last updated 6/8/21 by Liam Kelley
  *
  * Takes the ion population curves for O and does the volume integration for the ion
  * yields based on the intensities present in the input file.
  *
+ * Outputs two files. The first is the volume correlation to the intensities just as a reference.
+ * The second file is the total yield for each ion.
  */
 
 #include <iostream>
@@ -35,7 +37,8 @@ array<double, calcsize> IntsFromCalc; // has units of W/cm^2
 const int sizefile = 28570; //size of the files from the population calculation
 
 array<double, sizefile> IntsFromFile; //array of intensities from the pop calculation
-string tempint; //storage variable for intensities
+string tempintsi; //storage variable for intensities
+string tempintau;
 
 array<double, sizefile> O0pop; //arrays for the populations of each ion of carbon
 array<double, sizefile> O1pop;
@@ -89,7 +92,8 @@ int main() {
 
 	while (popindex < sizefile) {
 
-		inFile >> tempint;
+		inFile >> tempintsi;
+		inFile >> tempintau;
 		inFile >> tempo0;
 		inFile >> tempo1;
 		inFile >> tempo2;
@@ -171,16 +175,52 @@ int main() {
 
 	//Writing out intensities and volumes to file
 
-	outFile.open("output.dat");
+outFile.open("outputVolumes.dat");
 
-	for (int k = 0; k < calcsize; k++) {
-		outFile << IntsFromCalc[k];
-		outFile << "\t";
-		outFile << volumes[k];
-		outFile << "\n";
-	}
+	 outFile << "Intensity (SI)";
+	 outFile << "\t";
+	 outFile << "Volume (SI)";
+	 outFile << "\n";
 
-	outFile.close();
+	 for (int k = 0; k < calcsize; k++) {
+	 outFile << IntsFromCalc[k];
+	 outFile << "\t";
+	 outFile << volumes[k];
+	 outFile << "\n";
+	 }
+
+	 outFile.close();
+
+	 outFile.open("outputYields.dat");
+
+	 outFile << "Oxygen 1+ Yield";
+	 outFile << "\t";
+	 outFile << "Oxygen 2+ Yield";
+	 outFile << "\t";
+	 outFile << "Oxygen 3+ Yield";
+	 outFile << "\t";
+	 outFile << "Oxygen 4+ Yield";
+	 outFile << "\t";
+	 outFile << "Oxygen 5+ Yield";
+	 outFile << "\t";
+	 outFile << "Oxygen 6+ Yield";
+	 outFile << "\n";
+
+     outFile << o1yield;
+	 outFile << "\t";
+	 outFile << o2yield;
+	 outFile << "\t";
+	 outFile << o3yield;
+	 outFile << "\t";
+	 outFile << o4yield;
+	 outFile << "\t";
+	 outFile << o5yield;
+	 outFile << "\t";
+	 outFile << o6yield;
+	 outFile << "\n";
+
+	 outFile.close();
+
 
 	return 0;
 
