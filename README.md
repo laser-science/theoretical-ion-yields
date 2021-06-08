@@ -28,4 +28,6 @@ Running this two-code process for different maximum beam intensities will allow 
 
 Suggested C++ compiler: mingw64 [download here](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe/download)
 
+Suggested IDE: Eclipse [download here](https://www.eclipse.org/downloads/)
+
 Download this entire repository as a zip folder to run locally
