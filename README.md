@@ -22,6 +22,6 @@ intensity amplitude, the wavelength, and the FWHM. The code starts by calculatin
 
 Once you run this code, to get the total ion yield the GaussianBeamIntegration.cpp code is next. This code takes the populations and integrates based on the intensity-volume dependence of the beam. Volumes are calculated based on intensity, and the yields are updated based on the populations of the ions at those intensities. To run this code,
 take the population .dat file from the previous code and edit the input of the beam integration code based on the location and name of this file. This code also outputs two files.
-One is the volume-intensity dependence as a reference, and the second outputs the ion yields for each ion as a single number. 
+One is the volume-intensity dependence as a reference, and the second outputs the ion yields for each ion as a single number each. 
 
 Running this two-code process for different maximum beam intensities will allow one to recreate the ion yield curves central to this study and reproduced in the laboratory. 
