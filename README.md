@@ -24,4 +24,4 @@ Once you run this code, to get the total ion yield the GaussianBeamIntegration.c
 take the population .dat file from the previous code and edit the input of the beam integration code based on the location and name of this file. This code also outputs two files.
 One is the volume-intensity dependence as a reference, and the second outputs the ion yields for each ion as a single number. 
 
-Running this two-code process for different maximum beam intensities will allow one to recreate the ion yield curves central to this study and reproduced in the actual experiment. 
+Running this two-code process for different maximum beam intensities will allow one to recreate the ion yield curves central to this study and reproduced in the laboratory. 
