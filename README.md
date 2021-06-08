@@ -15,7 +15,7 @@ For the mathematica primer for the ADK calulations [click here.](https://github.
 [Carbon Monoxide ion yield calculation](https://github.com/laser-science/theoretical-ion-yields/blob/main/GaussianBeamIntegrationCO.cpp)
 
 
-# How to use this code:
+# How to use these codes:
 
 For either C, O, or CO, begin with the respective adk_calc.cpp file. In this file, there are variables to edit the characteristics of the Gaussian beam, including the maximum 
 intensity amplitude, the wavelength, and the FWHM. The code starts by calculating the ADK rate as a function of intensity and integrating the rates to produce the ion population curves. This code outputs the ADK rates and populations as functions of intensity in two separate .dat files.
