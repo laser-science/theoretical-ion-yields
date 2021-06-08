@@ -30,6 +30,6 @@ Suggested C++ compiler: mingw64 [download here](https://sourceforge.net/projects
 
 Suggested IDE: Eclipse [download here](https://www.eclipse.org/downloads/)
 
-For help setting up the compiler in Eclipse, [click here](https://www.eclipse.org/4diac/documentation/html/installation/minGW.html)
+For help setting up the compiler in Eclipse, [click here](https://stackoverflow.com/questions/3978898/how-to-compile-and-run-c-with-mingw-using-eclipse-and-cdt)
 
 Download this entire repository as a zip folder to run locally
