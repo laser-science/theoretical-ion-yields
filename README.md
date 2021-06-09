@@ -30,7 +30,7 @@ Suggested C++ compiler: mingw64 [download here](https://sourceforge.net/projects
 
 Suggested IDE: Eclipse [download here](https://www.eclipse.org/downloads/)
 
-For help setting up the compiler, [click here](https://stackoverflow.com/questions/3978898/how-to-compile-and-run-c-with-mingw-using-eclipse-and-cdt) (NOTE: When changing your path, write the folder directly - do not use the %MINGW_HOME% notation) Make sure the files are extracted to the C:\ drive.
+For help setting up the compiler, [click here](https://stackoverflow.com/questions/3978898/how-to-compile-and-run-c-with-mingw-using-eclipse-and-cdt) (NOTE: When changing your path, write the folder directly - do not use the %MINGW_HOME% notation) Make sure the files are extracted to the root of the C:\ drive.
 
 When setting up Eclipse, choose C/C++ project -> C++ project. Then uncheck the box "show project types and toolchains only if they are supported on the platform." Then select MinGW. Finally. In eclipse go to Project/Properties/ C C++ Build/Environment. Choose MINGW_HOME and make sure its value is C:\MinGW\mingw64 or C:\MinGW\mingw32 depending on what your folder is called. This has to be done with every new project, but you can run the code in the IDE as you would normally. Each project requires a new Debug configuration.
 
