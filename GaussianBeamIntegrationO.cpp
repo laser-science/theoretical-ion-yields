@@ -102,7 +102,7 @@ int main() {
 		inFile >> tempo5;
 		inFile >> tempo6;
 
-		IntsFromFile[popindex] = atof(tempint.c_str());
+		IntsFromFile[popindex] = atof(tempintsi.c_str());
 		O0pop[popindex] = atof(tempo0.c_str());
 		O1pop[popindex] = atof(tempo1.c_str());
 		O2pop[popindex] = atof(tempo2.c_str());
