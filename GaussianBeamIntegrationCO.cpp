@@ -83,7 +83,7 @@ int main() {
 	 inFile >> tempco0;
 	 inFile >> tempco1;
 
-	 IntsFromFile[popindex] = atof(tempint.c_str());
+	 IntsFromFile[popindex] = atof(tempintsi.c_str());
 	 CO0pop[popindex] = atof(tempco0.c_str());
 	 CO1pop[popindex] = atof(tempco1.c_str());
 
