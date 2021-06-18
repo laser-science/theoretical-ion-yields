@@ -94,7 +94,7 @@ int main() {
 	 inFile >> tempc3;
 	 inFile >> tempc4;
 
-	 IntsFromFile[popindex] = atof(tempint.c_str());
+	 IntsFromFile[popindex] = atof(tempintsi.c_str());
 	 C0pop[popindex] = atof(tempc0.c_str());
 	 C1pop[popindex] = atof(tempc1.c_str());
 	 C2pop[popindex] = atof(tempc2.c_str());
